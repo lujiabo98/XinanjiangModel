@@ -72,11 +72,6 @@ void Evapotranspiration::calculate()
 
 	//计算总的蒸散发量
 	E = EU + EL + ED;
-
-	if (WU < 1e-12)
-	{
-		int kp = 1;
-	}
 }
 
 

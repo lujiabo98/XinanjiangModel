@@ -111,7 +111,7 @@ void State::SetValues(double P, double EM, double F, double dt, double S0, doubl
 	double WU, double WL, double WD, double W,
 	double RIM, double R, double RS, double RI, double RG,
 	double PE, double QS, double QI, double QG, double QU,
-	double QU0, double O, double EP, double Q)
+	double QU0, double * O, double O2, double EP, double Q)
 {
 	m_P = P;
 	m_EM = EM;
@@ -139,6 +139,7 @@ void State::SetValues(double P, double EM, double F, double dt, double S0, doubl
 	m_QG = QG;
 	m_QU0 = QU0;
 	m_O = O;
+	m_O2 = O2;
 	m_EP = EP;
 
 	m_Q = Q;
@@ -149,7 +150,7 @@ State::State(double P, double EM, double F, double dt, double S0, double FR,
 	double WU, double WL, double WD, double W,
 	double RIM, double R, double RS, double RI, double RG,
 	double PE, double QS, double QI, double QG, double QU,
-	double QU0, double O, double EP, double Q)
+	double QU0, double * O, double O2, double EP, double Q)
 {
 	m_P = P;
 	m_EM = EM;
@@ -175,8 +176,10 @@ State::State(double P, double EM, double F, double dt, double S0, double FR,
 	m_QS = QS;
 	m_QI = QI;
 	m_QG = QG;
+	m_QU = QU;
 	m_QU0 = QU0;
 	m_O = O;
+	m_O2 = O2;
 	m_EP = EP;
 
 	m_Q = Q;
@@ -184,5 +187,5 @@ State::State(double P, double EM, double F, double dt, double S0, double FR,
 
 State::~State()
 {
-
+	delete[] m_O;
 }

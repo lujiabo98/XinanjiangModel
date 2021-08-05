@@ -1,6 +1,4 @@
 #include "Confluence.h"
-#include "Data.h"
-#include <algorithm>
 
 void Confluence::SetParmameter(const Parameter* parameter)
 {

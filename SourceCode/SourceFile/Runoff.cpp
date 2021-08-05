@@ -1,5 +1,4 @@
 #include "Runoff.h"
-#include <algorithm>
 
 void Runoff::SetParmameter(const Parameter* parameter)
 {
@@ -82,16 +81,10 @@ void Runoff::calculate()
 		RIM = PE * IM;   //计算不透水面积上的产流量
 
 	}
-	if (WU < 1e-12)
-	{
-		int kp = 1;
-	}
+
 	//========计算下一时段初土壤含水量========//
 	WU = WU + P - EU - R;
-	if (WU < 1e-12)
-	{
-		int kp = 1;
-	}
+
 	WL = WL - EL;
 
 	WD = WD - ED;

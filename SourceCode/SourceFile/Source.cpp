@@ -1,5 +1,4 @@
 #include "Source.h"
-#include <algorithm>
 
 void Source::SetParmameter(const Parameter* parameter)
 {
@@ -46,8 +45,6 @@ void Source::calculate()
 
 	KID = (1 - pow(1 - (KI + KG), 1.0 / M)) / (1 + KG / KI);   //表层自由水蓄水库对壤中流的计算时段出流系数，敏感
 
-
-
 	KGD = KID * KG / KI;   //表层自由水蓄水库对地下水的计算时段出流系数，敏感
 
 
@@ -61,11 +58,6 @@ void Source::calculate()
 							  产流面积比例仍为上一时段的比例不变*/
 		RG = KGD * S0 * FR;
 
-		if (_isnan(S0))
-		{
-			int kp = 1;
-		}
-
 		S = S0 * (1 - KID - KGD);   //更新下一时段初的自由水蓄量
 	}
 	else
@@ -78,11 +70,6 @@ void Source::calculate()
 		FR = R / PE;
 
 		S = S0 * FR0 / FR;
-
-		if (_isnan(S))
-		{
-			int kp = 1;
-		}
 
 		N = int(PE / 5.0) + 1;   //N 为计算时段分段数，每一段为计算步长
 
@@ -181,7 +168,7 @@ Source::Source(double sm, double ex, double kg, double ki,
 	double m, double kid, double kgd,
 	double smm, double smmf, double smf, double au,
 	double rsd, double rid, double rgd, double fr0,
-	int n, double q, double kidd, double kgdd)
+	int n, double q, double kidd, double kgdd, double dt_)
 {
 	SM = sm;
 
@@ -236,6 +223,8 @@ Source::Source(double sm, double ex, double kg, double ki,
 	KIDD = kidd;
 
 	KGDD = kgdd;
+
+	dt = dt_;
 }
 
 Source::~Source()

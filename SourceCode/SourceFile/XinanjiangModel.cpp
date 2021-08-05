@@ -6,7 +6,7 @@
 //         [3]李致家.现代水文模拟与预报技术，南京：河海大学出版社，2010
 //         [4]翟家瑞.常用水文预报算法和计算程序，郑州：黄河水利出版社，1995
 
-#include <iostream>
+
 #include <string>
 
 #include "Data.h"
@@ -88,7 +88,7 @@ int main()
 			muskingum.calculate();
 			muskingum.UpdateState(&state[nw]);
 
-			state[0].m_Q += state[nw].m_O;
+			state[0].m_Q += state[nw].m_O2;
 		}
 
 		io.m_Q[nt] = state[0].m_Q;

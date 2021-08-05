@@ -13,14 +13,16 @@ void Muskingum::SetState(const State* state)
 
 	I2 = state->m_QU;
 
-	O1 = state->m_O;
+	O = state->m_O;
 
 	dt = state->m_dt;
 }
 
 void Muskingum::UpdateState(State* state)
 {
-	state->m_O = O2;
+	state->m_O = O;
+
+	state->m_O2 = O2;
 }
 
 void Muskingum::calculate()
@@ -39,12 +41,34 @@ void Muskingum::calculate()
 
 	C2 = (-0.5 * dt + KL - KL * XL) / denominator;
 
-	O2 = C0 * I2 + C1 * I1 + C2 * O1;   //计算时段末单元流域在全流域出口断面的出流量
+	if (!O)
+	{
+		O = new double[N];  //创建存储单元流域在子河段出口断面的出流量的动态数组
+		
+		for (int n = 0; n < N; n++)
+		{
+			O[n] = 0.0;    //单元流域在子河段出口断面的出流量为0
+		}
+	}
+	
+	for (int n = 0; n < N; n++)
+	{
+		O1 = O[n];   //子河段时段初出流量
+
+		O2 = C0 * I2 + C1 * I1 + C2 * O1;   //计算时段末单元流域在子河段出口断面的出流量，m3/s
+
+		O[n] = O2;   //更新子河段时段初出流量
+
+		I1 = O1;    //上一河段时段初出流为下一河段时段初入流
+
+		I2 = O2;    //上一河段时段末出流为下一河段时段末入流
+	}
 }
 
 Muskingum::Muskingum(double ke, double xe, double kl, double xl, 
 	int n, double c0, double c1, double c2,
-	double i1, double i2, double o1, double o2, double dt_)
+	double i1, double i2, double o1, 
+	double o2, double* o, double dt_)
 {
 	KE = ke;
 
@@ -69,6 +93,8 @@ Muskingum::Muskingum(double ke, double xe, double kl, double xl,
 	O1 = o1;
 
 	O2 = o2;
+
+	O = o;
 
 	dt = dt_;
 }
