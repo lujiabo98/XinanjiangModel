@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include <string>
-#include <iostream>
 #include <vector>
 #include "Watershed.h"
 
@@ -80,7 +79,7 @@ public:
 		double WU, double WL, double WD, double W, 
 		double RIM, double R, double RS, double RI, double RG,
 		double PE, double QS, double QI, double QG, double QU, 
-		double QU0, double O, double EP, double Q);   //设置状态值
+		double QU0, double * O, double O2, double EP, double Q);   //设置状态值
 
 	State(double P = 0, double EM = 0, double F = 0, double dt = 24, 
 		double S0 = 0, double FR = 0, 
@@ -88,8 +87,8 @@ public:
 		double WU = 10, double WL = 30, double WD = 20, double W = 60, 
 		double RIM = 0, double R = 0, double RS = 0, double RI = 0, 
 		double RG = 0, double PE = 0, double QS = 0, double QI = 0,
-		double QG = 0, double QU = 1, double QU0 = 1, double O = 1, 
-		double EP = 0, double Q = 0);    //默认构造函数
+		double QG = 0, double QU = 0, double QU0 = 0, double * O = nullptr, 
+		double O2 = 0.0, double EP = 0, double Q = 0);    //默认构造函数
 
 	~State();
 
@@ -150,7 +149,9 @@ public:
 
 	double m_QU0;   //上一时段末即本时段初的单元流域出口流量，m3/s
 
-	double m_O;    //单元流域在全流域出口断面形成的出流，m3/s
+	double * m_O;    //单元流域在各子河段出口断面形成的出流，m3/s
+
+	double m_O2;   //单元流域在全流域出口断面形成的出流，m3/s
 
 
 	//========输出外部========//

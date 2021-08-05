@@ -20,7 +20,7 @@ public:
 		double m = 0.0, double kid = 0.0, double kgd = 0.0,
 		double smm = 0.0, double smmf = 0.0, double smf = 0.0, double au = 0.0,
 		double rsd = 0.0, double rid = 0.0, double rgd = 0.0, double fr0 = 0.0,
-		int n = 1, double q = 0.0, double kidd = 0.0, double kgdd = 0.0);
+		int n = 1, double q = 0.0, double kidd = 0.0, double kgdd = 0.0, double dt_ = 0.0);
 
 	~Source();
 

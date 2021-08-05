@@ -18,7 +18,7 @@ public:
 		int n = 1, double c0 = 0.0, 
 		double c1 = 0.0, double c2 = 0.0,
 		double i1 = 0.0, double i2 = 0.0, 
-		double o1 = 0.0, double o2 = 0.0, double dt_ = 24);
+		double o1 = 0.0, double o2 = 0.0, double* o = nullptr, double dt_ = 24);
 
 	~Muskingum();
 
@@ -51,6 +51,8 @@ private:
 	double O1;    //时段初的河段出流量
 
 	double O2;    //时段末的河段出流量
+
+	double * O;   //各子河段出流量
 
 	double dt;   //模型计算时段长,h
 
