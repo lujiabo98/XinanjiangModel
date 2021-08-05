@@ -19,9 +19,10 @@
 
 
 //主函数
-int main()
+int main(int argc, char* argv[])
 {
-	std::string Path = "E:\\Research\\XinanjiangModel\\Myself\\example\\Input\\";    //输入文件所在路径
+	std::string Path = argv[0];  //获取可执行文件所在路径
+	Path = Path.substr(0, Path.rfind("\\") + 1);   //获取可执行文件所在目录
 
 	Parameter parameter;   //流域参数
 	parameter.ReadFromFile(Path);   //读取参数文件
