@@ -47,11 +47,10 @@ void Source::calculate()
 
 	KGD = KID * KG / KI;   //表层自由水蓄水库对地下水的计算时段出流系数，敏感
 
-
 	//三分水源[4]
-	if (PE <= 0)
+	if (PE <= 1e-5)
 	{
-		//净雨量小于等于0时
+		//净雨量小于等于0时,这里认为净雨量小于1e-5时即为小于等于0
 		RS = 0;
 
 		RI = KID * S0 * FR;   /*当净雨量小于等于0时，消耗自由水蓄水库中的水
@@ -59,6 +58,7 @@ void Source::calculate()
 		RG = KGD * S0 * FR;
 
 		S = S0 * (1 - KID - KGD);   //更新下一时段初的自由水蓄量
+
 	}
 	else
 	{
@@ -67,7 +67,12 @@ void Source::calculate()
 
 		FR0 = FR;   //上一时段产流面积比例
 
-		FR = R / PE;
+		FR = R / PE;   //计算本时段产流面积比例
+
+		if (FR > 1)    //如果FR由于小数误差而计算出大于1的情况，则强制置为1
+		{
+			FR = 1;
+		}
 
 		S = S0 * FR0 / FR;
 
